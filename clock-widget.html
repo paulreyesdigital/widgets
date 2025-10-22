@@ -17,9 +17,6 @@
             overflow: hidden;
             width: 100vw;
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .clock-container {
@@ -27,80 +24,55 @@
             grid-template-columns: 1fr 1fr;
             width: 100%;
             height: 100%;
-            position: relative;
         }
 
-        .time-section, .date-section {
+        .section {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
-            position: relative;
+            padding: 1rem;
         }
 
-        .time-section {
+        .left-section {
             border-right: 3px solid rgba(255, 255, 255, 0.3);
         }
 
-        .time-display, .date-display {
+        .big-number {
             color: white;
-            font-size: clamp(6rem, 25vw, 20rem);
+            font-size: 18vw;
             font-weight: 900;
-            line-height: 0.85;
-            letter-spacing: -0.05em;
+            line-height: 1;
+            letter-spacing: -0.02em;
         }
 
-        .time-label, .date-label {
+        .label {
             color: white;
-            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-size: 3.5vw;
             font-weight: 900;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .left-label {
             align-self: flex-start;
-            padding-left: 10%;
+            margin-left: 15%;
         }
 
-        .date-label {
+        .right-label {
             align-self: flex-end;
-            padding-left: 0;
-            padding-right: 10%;
-        }
-
-        .divider {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 3px;
-            height: 60%;
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .clock-container {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr;
-            }
-
-            .time-display, .date-display {
-                font-size: clamp(4rem, 15vw, 20rem);
-            }
-
-            .time-label, .date-label {
-                font-size: clamp(1rem, 3vw, 3rem);
-            }
+            margin-right: 15%;
         }
     </style>
 </head>
 <body>
     <div class="clock-container">
-        <div class="time-section">
-            <div class="time-display" id="hours">06</div>
-            <div class="time-label" id="period">AM</div>
+        <div class="section left-section">
+            <div class="big-number" id="hours">06</div>
+            <div class="label left-label" id="period">AM</div>
         </div>
-        <div class="date-section">
-            <div class="date-display" id="minutes">24</div>
-            <div class="date-label" id="day">THURSDAY</div>
+        <div class="section">
+            <div class="big-number" id="minutes">38</div>
+            <div class="label right-label" id="day">THURSDAY</div>
         </div>
     </div>
 
@@ -112,7 +84,7 @@
             let hours = now.getHours();
             const period = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
-            hours = hours ? hours : 12; // Convert 0 to 12
+            hours = hours ? hours : 12;
             
             // Get minutes
             const minutes = now.getMinutes();
