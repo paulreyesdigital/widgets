@@ -11,27 +11,44 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Arial Black', 'Arial Bold', sans-serif;
             background: #1e3a8a;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clock-wrapper {
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            min-width: 100vw;
+            display: flex;
         }
 
         .clock-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: row;
             width: 100%;
             height: 100%;
+            min-height: 0;
         }
 
         .section {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 5%;
+            min-width: 0;
         }
 
         .left-section {
@@ -40,39 +57,53 @@
 
         .big-number {
             color: white;
-            font-size: 18vw;
+            font-size: min(25vw, 35vh);
             font-weight: 900;
-            line-height: 1;
+            line-height: 0.9;
             letter-spacing: -0.02em;
+            white-space: nowrap;
         }
 
         .label {
             color: white;
-            font-size: 3.5vw;
+            font-size: min(5vw, 7vh);
             font-weight: 900;
-            margin-top: 0.5rem;
+            margin-top: min(2vh, 1rem);
+            white-space: nowrap;
         }
 
         .left-label {
             align-self: flex-start;
-            margin-left: 15%;
+            margin-left: 10%;
         }
 
         .right-label {
             align-self: flex-end;
-            margin-right: 15%;
+            margin-right: 10%;
+        }
+
+        /* Force horizontal even on narrow viewports */
+        @media (max-aspect-ratio: 1/1) {
+            .big-number {
+                font-size: min(20vw, 25vh);
+            }
+            .label {
+                font-size: min(4vw, 5vh);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="clock-container">
-        <div class="section left-section">
-            <div class="big-number" id="hours">06</div>
-            <div class="label left-label" id="period">AM</div>
-        </div>
-        <div class="section">
-            <div class="big-number" id="minutes">38</div>
-            <div class="label right-label" id="day">THURSDAY</div>
+    <div class="clock-wrapper">
+        <div class="clock-container">
+            <div class="section left-section">
+                <div class="big-number" id="hours">06</div>
+                <div class="label left-label" id="period">AM</div>
+            </div>
+            <div class="section">
+                <div class="big-number" id="minutes">43</div>
+                <div class="label right-label" id="day">THURSDAY</div>
+            </div>
         </div>
     </div>
 
