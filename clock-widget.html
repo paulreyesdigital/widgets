@@ -78,17 +78,16 @@
 
         @media (max-width: 768px) {
             .clock-container {
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr;
             }
 
-            .time-section {
-                border-right: none;
-                border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            .time-display, .date-display {
+                font-size: clamp(4rem, 15vw, 20rem);
             }
 
-            .divider {
-                display: none;
+            .time-label, .date-label {
+                font-size: clamp(1rem, 3vw, 3rem);
             }
         }
     </style>
