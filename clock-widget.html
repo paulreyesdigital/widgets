@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock Widget</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial Black', 'Arial Bold', sans-serif;
+            background: #1e3a8a;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clock-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .time-section, .date-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .time-section {
+            border-right: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .time-display, .date-display {
+            color: white;
+            font-size: clamp(6rem, 25vw, 20rem);
+            font-weight: 900;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+        }
+
+        .time-label, .date-label {
+            color: white;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-top: 1rem;
+            align-self: flex-start;
+            padding-left: 10%;
+        }
+
+        .date-label {
+            align-self: flex-end;
+            padding-left: 0;
+            padding-right: 10%;
+        }
+
+        .divider {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 3px;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .clock-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+            }
+
+            .time-section {
+                border-right: none;
+                border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            }
+
+            .divider {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="time-section">
+            <div class="time-display" id="hours">06</div>
+            <div class="time-label" id="period">AM</div>
+        </div>
+        <div class="date-section">
+            <div class="date-display" id="minutes">24</div>
+            <div class="date-label" id="day">THURSDAY</div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            
+            // Get hours in 12-hour format
+            let hours = now.getHours();
+            const period = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Convert 0 to 12
+            
+            // Get minutes
+            const minutes = now.getMinutes();
+            
+            // Get day of week
+            const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+            const day = days[now.getDay()];
+            
+            // Update the DOM
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('period').textContent = period;
+            document.getElementById('day').textContent = day;
+        }
+
+        // Update immediately
+        updateClock();
+        
+        // Update every second
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
